@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle `
       body {
         height: 100%;
         width : 100%;
-        background-color: #eff3f7;
+        background-color: #22254b;
       }     
 `
 
@@ -37,6 +37,8 @@ const MoviesAllBlock  = styled.div `
 
 
     `
+const Movie_API = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1";
+const SEARCH_API = "https://api.themoviedb.org/3/search/movie?&api_key=04c35731a5ee918f014970082a0088b1&query=";
 
 
 const App = () => {
@@ -47,12 +49,8 @@ const App = () => {
     const fetchData = async() => {
       setLoading(true);
       try {
-        const {
-          data : {
-            data :{ movies }
-           }
-        } = await axios.get("https://yts-proxy.now.sh/list_movies.json?sort_by=rating");
-        setMovies(movies);
+        const Movies = await axios.get(Movie_API);
+        setMovies(Movies.data.results);
       } catch(e) {
         console.log(e);
       }
@@ -64,19 +62,14 @@ const App = () => {
   return ( 
    <MoviesAllBlock>
      <GlobalStyle></GlobalStyle>
-      {isLoading ? (
-         <div className="Loader">
-            <span className="Loader_text">Loading...</span>   
-        </div>
-       ) : (
          <div className="movies">
              {movies.map(movie => (
               <Movies key={movie.id} movie={movie} />))}
          </div>
-          )} 
   </MoviesAllBlock>
   )
+             }
+  export default App;
 
-}
 
-export default App;
+
