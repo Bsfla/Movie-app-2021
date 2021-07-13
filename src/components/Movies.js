@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import Home from "../routes/Home";
 import styled from 'styled-components';
 
 const MoviesBlock = styled.div `
@@ -26,6 +26,11 @@ const MoviesBlock = styled.div `
             overflow: hidden;
             color: white;
             background-color: #373b69;
+            
+            
+            .green {
+                color: green;
+            } 
         }
 
         .movie-over {
@@ -40,7 +45,9 @@ const MoviesBlock = styled.div `
             color: black;
 
             h2 {
+                color: blue;
                 border-bottom: 40px;
+                font-size: 2rem;
             }
             p {
                 margin-top: 150px;
@@ -55,6 +62,11 @@ const MoviesBlock = styled.div `
 
 `
 const IMG_API = "https://image.tmdb.org/t/p/w1280";
+const setVote = (vote) => {
+     if (vote >= 8) {
+         return 'green';
+     }
+}
 
 const Movies = ({ movie }) => {
     const { title, overview, vote_average, poster_path,release_date } = movie;
@@ -64,7 +76,7 @@ const Movies = ({ movie }) => {
             <div className='movie_data'>
                 <h2 className='title'>{title}</h2>
                 <h3 className='year'>{release_date}</h3>
-                <span className="rating">{vote_average}</span>
+                <span className={setVote(vote_average)}>{vote_average}</span>
             </div>
             <div className="movie-over">
                 <h2>OverView</h2>
